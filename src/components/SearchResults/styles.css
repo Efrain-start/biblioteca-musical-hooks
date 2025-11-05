@@ -1,0 +1,9 @@
+.search {
+  display: grid;
+  gap: .75rem;
+}
+
+.search__empty {
+  color: #666;
+  font-style: italic;
+}

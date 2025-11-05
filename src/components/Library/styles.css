@@ -1,0 +1,9 @@
+.library {
+  display: grid;
+  gap: .75rem;
+}
+
+.library__empty {
+  color: #666;
+  font-style: italic;
+}

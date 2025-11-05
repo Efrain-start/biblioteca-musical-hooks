@@ -1,40 +1,42 @@
-import React, { Component } from "react";
-import Header from "./components/Header.jsx"; // <-- .jsx si renombraste
-import Song from "./components/Song.jsx";     // <-- .jsx si renombraste
-import "./components/App.css";
+import { useEffect, useState } from "react";
+import Header from "./components/Header";
+import SearchResults from "./components/SearchResults";
+import Library from "./components/Library";
+import { mockSearchResults } from "./data/mockSongs";
 
-class App extends Component {
-  songs = [
-  { id: 1, title: "Maldito Duende", artist: "Héroes del Silencio", album: "Senderos de traición", duration: 259 }, // 4:19
-  { id: 2, title: "Lamento Boliviano", artist: "Enanitos Verdes", album: "Big Bang", duration: 223 }, // 3:43
-  { id: 3, title: "En algún Lugar", artist: "Duncan Dhu", album: "El grito del tiempo", duration: 236 }, // 3:56
-];
+export default function App() {
+  const [results] = useState(mockSearchResults);
+  const [library, setLibrary] = useState([]);
 
+  const addToLibrary = (song) => {
+    setLibrary((prev) => {
+      const exists = prev.some((s) => s.id === song.id);
+      return exists ? prev : [...prev, song];
+    });
+  };
 
-  componentDidMount() {
-    console.log("✅ Biblioteca Musical cargada correctamente");
-  }
+  const removeFromLibrary = (id) => {
+    setLibrary((prev) => prev.filter((s) => s.id !== id));
+  };
 
-  render() {
-    return (
-      <div className="app">
-        <Header title="Biblioteca Musical" subtitle="Mí playlist de prueba - by Efrain Aguilar" />
-        <main className="content">
-          <section className="song-list" aria-label="Lista de canciones">
-            {this.songs.map((song) => (
-              <Song
-                key={song.id}
-                title={song.title}
-                artist={song.artist}
-                album={song.album}
-                duration={song.duration}
-              />
-            ))}
-          </section>
-        </main>
-      </div>
-    );
-  }
+  useEffect(() => {
+    console.log(`Biblioteca actualizada: ${library.length} canciones`, library);
+  }, [library]);
+
+  return (
+    <>
+      <Header title="Biblioteca Musical (Hooks + Funcionales)" />
+      <main className="container">
+        <section className="panel">
+          <h2>Resultados de búsqueda</h2>
+          <SearchResults songs={results} library={library} onAdd={addToLibrary} />
+        </section>
+
+        <section className="panel">
+          <h2>Mi biblioteca</h2>
+          <Library songs={library} onRemove={removeFromLibrary} />
+        </section>
+      </main>
+    </>
+  );
 }
-
-export default App;

@@ -1,0 +1,55 @@
+.song {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .75rem;
+  align-items: center;
+  padding: .75rem 1rem;
+  border: 1px solid #eee;
+  border-radius: .75rem;
+  background: #fff;
+}
+
+.song__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .5rem;
+  align-items: baseline;
+}
+
+.song__title { font-weight: 600; }
+.song__artist { color: #444; }
+.song__album { color: #666; }
+
+.song__right {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.song__duration {
+  font-variant-numeric: tabular-nums;
+  margin-right: .25rem;
+  color: #555;
+}
+
+.song__btn {
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  padding: .35rem .6rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+.song__btn[disabled],
+.song__btn[aria-disabled="true"] {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.song__btn--danger {
+  background: #fff;
+  color: #b00020;
+  border-color: #b00020;
+}
